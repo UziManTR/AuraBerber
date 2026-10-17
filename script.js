@@ -3,9 +3,13 @@ const AURA_CONFIG = { supabaseUrl: "", supabaseAnonKey: "", businessName: "AURA"
 const $ = (s, root=document) => root.querySelector(s);
 $("#year").textContent = new Date().getFullYear();
 const progress = $("#readingProgress");
+const heroBackground = $(".hero-bg");
 const updateProgress = () => {
  const max = document.documentElement.scrollHeight - window.innerHeight;
  if(progress) progress.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + "%";
+ if(heroBackground && !window.matchMedia("(prefers-reduced-motion: reduce)").matches && window.innerWidth > 700) {
+  heroBackground.style.transform = "translateY(" + Math.min(window.scrollY * .12, 95) + "px) scale(1.04)";
+ }
 };
 window.addEventListener("scroll", updateProgress, {passive:true});
 updateProgress();
@@ -31,10 +35,25 @@ document.querySelectorAll(".style-card img").forEach(img=>{
   img.alt=img.alt+" (temsili görsel)";
  },{once:true});
 });
+// Her saç modeli ekrana yaklaşınca ayrı ayrı ve sırayla görünür.
+const galleryCards=[...document.querySelectorAll(".style-card")];
+galleryCards.forEach((card,index)=>card.style.setProperty("--delay",(index%4)*85+"ms"));
 const galleryObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
- if(entry.isIntersecting){entry.target.style.animationPlayState="running";galleryObserver.unobserve(entry.target)}
-}),{threshold:.08});
-document.querySelectorAll(".style-card").forEach(card=>galleryObserver.observe(card));
+ if(entry.isIntersecting){entry.target.classList.add("is-visible");galleryObserver.unobserve(entry.target)}
+}),{threshold:.12,rootMargin:"0px 0px -35px 0px"});
+galleryCards.forEach(card=>galleryObserver.observe(card));
+// Fotoğraf bağlantısı bozuksa aynı genel fotoğrafı tekrar etme.
+document.querySelectorAll(".style-card img").forEach(img=>{
+ img.addEventListener("error",()=>{
+  const card=img.closest(".style-card");
+  const placeholder=document.createElement("div");
+  placeholder.className="image-placeholder";
+  placeholder.textContent=card.querySelector("h3").textContent;
+  placeholder.setAttribute("role","img");
+  placeholder.setAttribute("aria-label",placeholder.textContent+" görseli yüklenemedi");
+  img.replaceWith(placeholder);
+ },{once:true});
+});
 function applyBusinessDetails(d){
  if(d.address){$("#addressText").textContent=d.address;$("#mapsLink").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(d.address);$("#mapFrame").src="https://maps.google.com/maps?q="+encodeURIComponent(d.address)+"&z=15&output=embed"}
  if(d.phone){$("#phoneText").textContent=d.phone;$("#callBtn").href="tel:"+d.phone.replace(/[^+\d]/g,"");$("#callBtn").textContent="TELEFONLA ULAŞ ↗"}
