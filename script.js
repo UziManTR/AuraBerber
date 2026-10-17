@@ -26,15 +26,6 @@ document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",(
  });
 }));
 function notify(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
-// Fotoğraf bağlantısı bozulursa kartı boş bırakma.
-document.querySelectorAll(".style-card img").forEach(img=>{
- img.addEventListener("error",()=>{
-  if(img.dataset.retried)return;
-  img.dataset.retried="1";
-  img.src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=650&q=80";
-  img.alt=img.alt+" (temsili görsel)";
- },{once:true});
-});
 // Her saç modeli ekrana yaklaşınca ayrı ayrı ve sırayla görünür.
 const galleryCards=[...document.querySelectorAll(".style-card")];
 galleryCards.forEach((card,index)=>card.style.setProperty("--delay",(index%4)*85+"ms"));
