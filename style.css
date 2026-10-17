@@ -70,3 +70,24 @@ body.cursor-active .cursor-glow,body.cursor-active .cursor-ring{opacity:1}
 body.cursor-hover .cursor-ring{width:44px;height:44px;border-color:#ffe7a0;background:#e2b94f12}
 @media(hover:none),(pointer:coarse){.cursor-glow,.cursor-ring{display:none}}
 @media(prefers-reduced-motion:reduce){.cursor-glow,.cursor-ring{display:none}}
+
+
+/* AURA GOLD THEME: high-visibility accents */
+:root{--gold:#f2c94c;--gold-light:#ffe9a3}
+.brand span,.footer .brand span{color:#f2c94c!important}
+.hero h1 span{background:linear-gradient(100deg,#fff1b8 0%,#f2c94c 24%,#c58b16 48%,#ffe9a3 68%,#f2c94c 90%)!important;background-size:200% auto!important;background-clip:text!important;-webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;-webkit-text-stroke:1px #f2c94c!important}
+.hero .eyebrow,.section .kicker,.gender-card .eyebrow,.contact .eyebrow{color:#f2c94c!important}
+.nav a:hover,.text-link:hover,.footer a:hover{color:#ffe9a3!important}
+.nav-cta,.btn{border-color:#f2c94c99!important}
+.nav-cta:hover,.btn:hover{background:#f2c94c!important;color:#08090c!important;border-color:#f2c94c!important}
+.btn.primary{background:linear-gradient(115deg,#f2c94c,#ffe9a3)!important;color:#08090c!important;border-color:#f2c94c!important;box-shadow:0 5px 24px #f2c94c22}
+.filter.active,.filter:hover{background:#f2c94c!important;border-color:#f2c94c!important;color:#08090c!important}
+.gender-card.men,.gender-card.women{border-bottom:3px solid #f2c94c!important}
+.gender-label{ text-shadow:0 4px 28px #f2c94c22}
+.style-card:hover,.price-box:hover{border-color:#f2c94c!important;box-shadow:0 12px 38px #f2c94c12}
+.price-row span:last-child,.men .gender-label,.women .gender-label{color:#ffe9a3!important}
+.reading-progress span{background:linear-gradient(90deg,#9b6a08,#f2c94c,#fff1b8,#d49b20)!important;box-shadow:0 0 18px #f2c94caa!important}
+.text-link{border-color:#f2c94c!important}
+.contact h2{ text-shadow:0 0 32px #f2c94c18}
+.cursor-glow{background:radial-gradient(circle,#f2c94c30 0%,#f2c94c13 40%,transparent 72%)!important}
+.cursor-ring{border-color:#f2c94c!important;box-shadow:0 0 16px #f2c94c55!important}
