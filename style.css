@@ -125,3 +125,10 @@ body{font-family:"DM Sans",Arial,sans-serif!important}
 .gender-label{font-family:"Oswald","Arial Narrow",sans-serif!important}
 .nav,.btn,.filter,.eyebrow,.kicker,.style-meta small{font-family:"Space Grotesk",Arial,sans-serif!important}
 .style-meta h3{font-family:"Outfit",Arial,sans-serif!important}
+
+/* Final polish: keep the live map in its natural Google Maps colours */
+.map iframe,.map:hover iframe{filter:none!important}
+/* Soft gold light only, no cursor outline */
+.cursor-ring{display:none!important}
+.cursor-glow{width:300px!important;height:300px!important;background:radial-gradient(circle,#f2c94c20 0%,#f2c94c0e 32%,#f2c94c05 52%,transparent 72%)!important;opacity:0;transition:opacity .45s ease!important;mix-blend-mode:screen}
+body.cursor-active .cursor-glow{opacity:1}
