@@ -2,6 +2,13 @@
 const AURA_CONFIG = { supabaseUrl: "", supabaseAnonKey: "", businessName: "AURA", address: "", phone: "", hours: "", mapsQuery: "" };
 const $ = (s, root=document) => root.querySelector(s);
 $("#year").textContent = new Date().getFullYear();
+const progress = $("#readingProgress");
+const updateProgress = () => {
+ const max = document.documentElement.scrollHeight - window.innerHeight;
+ if(progress) progress.style.width = (max > 0 ? window.scrollY / max * 100 : 0) + "%";
+};
+window.addEventListener("scroll", updateProgress, {passive:true});
+updateProgress();
 $("#menuBtn").addEventListener("click",()=>$("#nav").classList.toggle("open"));
 $("#nav").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>$("#nav").classList.remove("open")));
 const observer = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});
@@ -15,6 +22,19 @@ document.querySelectorAll(".filter").forEach(btn=>btn.addEventListener("click",(
  });
 }));
 function notify(msg){const t=$("#toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+// Fotoğraf bağlantısı bozulursa kartı boş bırakma.
+document.querySelectorAll(".style-card img").forEach(img=>{
+ img.addEventListener("error",()=>{
+  if(img.dataset.retried)return;
+  img.dataset.retried="1";
+  img.src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=650&q=80";
+  img.alt=img.alt+" (temsili görsel)";
+ },{once:true});
+});
+const galleryObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{
+ if(entry.isIntersecting){entry.target.style.animationPlayState="running";galleryObserver.unobserve(entry.target)}
+}),{threshold:.08});
+document.querySelectorAll(".style-card").forEach(card=>galleryObserver.observe(card));
 function applyBusinessDetails(d){
  if(d.address){$("#addressText").textContent=d.address;$("#mapsLink").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(d.address);$("#mapFrame").src="https://maps.google.com/maps?q="+encodeURIComponent(d.address)+"&z=15&output=embed"}
  if(d.phone){$("#phoneText").textContent=d.phone;$("#callBtn").href="tel:"+d.phone.replace(/[^+\d]/g,"");$("#callBtn").textContent="TELEFONLA ULAŞ ↗"}
@@ -30,7 +50,7 @@ async function loadFromSupabase(){
   const rows=await res.json();const data={};
   rows.forEach(r=>data[r.key]=r.value);
   applyBusinessDetails({address:data.address,phone:data.phone,hours:data.hours});
-  if(data.business_name)document.title=data.business_name+" — Hair Studio";
+  if(data.business_name)document.title=data.business_name+" — Saç Tasarım Stüdyosu";
  }catch(e){console.info("Supabase henüz yapılandırılmadı; demo içeriği gösteriliyor.",e)}
 }
 loadFromSupabase();
