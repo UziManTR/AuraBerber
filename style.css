@@ -104,3 +104,24 @@ h1,h2,h3,.brand,.gender-label{font-family:var(--font-display)}
 .price-box h3,.price-row span:last-child{font-family:var(--font-luxe)!important}
 .gender-label{font-family:var(--font-condensed)!important;letter-spacing:-.045em}
 .contact h2{font-family:var(--font-editorial)!important;letter-spacing:-.045em}
+
+/* Final visible gold wave + clear typography */
+.hero h1 span{
+ background:linear-gradient(110deg,#8b6412 0%,#f2c94c 18%,#fff1b8 32%,#d69d20 47%,#ffe9a3 58%,#9b6a08 72%,#f2c94c 88%,#fff1b8 100%)!important;
+ background-size:250% auto!important;
+ background-clip:text!important;
+ -webkit-background-clip:text!important;
+ -webkit-text-fill-color:transparent!important;
+ -webkit-text-stroke:1px #f2c94c!important;
+ animation:goldWave 5s linear infinite!important;
+}
+@keyframes goldWave{0%{background-position:200% center}100%{background-position:-200% center}}
+/* Make the additional font families visibly apply to the intended elements */
+body{font-family:"DM Sans",Arial,sans-serif!important}
+.hero h1{font-family:"Space Grotesk",Arial,sans-serif!important}
+.section h2{font-family:"Manrope",Arial,sans-serif!important}
+.contact h2{font-family:"Playfair Display",Georgia,serif!important}
+.brand{font-family:"Montserrat",Arial,sans-serif!important}
+.gender-label{font-family:"Oswald","Arial Narrow",sans-serif!important}
+.nav,.btn,.filter,.eyebrow,.kicker,.style-meta small{font-family:"Space Grotesk",Arial,sans-serif!important}
+.style-meta h3{font-family:"Outfit",Arial,sans-serif!important}
