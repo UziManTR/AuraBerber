@@ -66,31 +66,30 @@ async function loadFromSupabase(){
 loadFromSupabase();
 
 
-// Gold cursor glow effect: enabled only for mouse/trackpad, disabled for touch and reduced motion.
+// Smooth, soft gold cursor glow. No ring or outline.
 if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
     !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
  const glow = document.createElement("div");
  glow.className = "cursor-glow";
  glow.setAttribute("aria-hidden", "true");
- const ring = document.createElement("div");
- ring.className = "cursor-ring";
- ring.setAttribute("aria-hidden", "true");
- document.body.append(glow, ring);
- let raf = 0, x = -100, y = -100;
+ document.body.append(glow);
+ let targetX = -400, targetY = -400, currentX = targetX, currentY = targetY;
+ let frame = 0, active = false;
+ const animateGlow = () => {
+  currentX += (targetX - currentX) * 0.11;
+  currentY += (targetY - currentY) * 0.11;
+  glow.style.transform = "translate3d(" + currentX + "px," + currentY + "px,0) translate(-50%,-50%)";
+  if (Math.abs(targetX-currentX) > 0.25 || Math.abs(targetY-currentY) > 0.25) {
+   frame = requestAnimationFrame(animateGlow);
+  } else {
+   frame = 0;
+  }
+ };
  window.addEventListener("pointermove", event => {
-  x = event.clientX; y = event.clientY;
+  targetX = event.clientX;
+  targetY = event.clientY;
   document.body.classList.add("cursor-active");
-  if (raf) cancelAnimationFrame(raf);
-  raf = requestAnimationFrame(() => {
-   glow.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)";
-   ring.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)";
-  });
+  if (!frame) frame = requestAnimationFrame(animateGlow);
  }, {passive:true});
- document.addEventListener("pointerover", event => {
-  if (event.target.closest("a,button,.style-card,.filter")) document.body.classList.add("cursor-hover");
- });
- document.addEventListener("pointerout", event => {
-  if (event.target.closest("a,button,.style-card,.filter")) document.body.classList.remove("cursor-hover");
- });
  document.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
 }
