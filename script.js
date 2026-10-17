@@ -64,3 +64,33 @@ async function loadFromSupabase(){
  }catch(e){console.info("Supabase henüz yapılandırılmadı; demo içeriği gösteriliyor.",e)}
 }
 loadFromSupabase();
+
+
+// Gold cursor glow effect: enabled only for mouse/trackpad, disabled for touch and reduced motion.
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+ const glow = document.createElement("div");
+ glow.className = "cursor-glow";
+ glow.setAttribute("aria-hidden", "true");
+ const ring = document.createElement("div");
+ ring.className = "cursor-ring";
+ ring.setAttribute("aria-hidden", "true");
+ document.body.append(glow, ring);
+ let raf = 0, x = -100, y = -100;
+ window.addEventListener("pointermove", event => {
+  x = event.clientX; y = event.clientY;
+  document.body.classList.add("cursor-active");
+  if (raf) cancelAnimationFrame(raf);
+  raf = requestAnimationFrame(() => {
+   glow.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)";
+   ring.style.transform = "translate(" + x + "px," + y + "px) translate(-50%,-50%)";
+  });
+ }, {passive:true});
+ document.addEventListener("pointerover", event => {
+  if (event.target.closest("a,button,.style-card,.filter")) document.body.classList.add("cursor-hover");
+ });
+ document.addEventListener("pointerout", event => {
+  if (event.target.closest("a,button,.style-card,.filter")) document.body.classList.remove("cursor-hover");
+ });
+ document.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
+}
