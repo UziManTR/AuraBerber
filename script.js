@@ -1,5 +1,5 @@
 /* Demo config: fill in only after the owner approves the details. Supabase anon key is public by design; protect data with RLS. Never put service_role keys here. */
-const AURA_CONFIG = { supabaseUrl: "", supabaseAnonKey: "", businessName: "AURA", address: "", phone: "", hours: "", mapsQuery: "" };
+const AURA_CONFIG = { supabaseUrl: "", supabaseAnonKey: "", businessName: "Aura Kuaför Men/Women Antalya", address: "Huzur Apt., Gürsu Mahallesi, 312. Sokak No: 12, 07070 Konyaaltı/Antalya", phone: "+90 532 064 12 37", hours: "Pazartesi–Cumartesi 08.30–20.30 · Pazar 10.00–19.00", mapsQuery: "36.8635524,30.6328005" };
 const $ = (s, root=document) => root.querySelector(s);
 $("#year").textContent = new Date().getFullYear();
 const progress = $("#readingProgress");
@@ -46,7 +46,7 @@ document.querySelectorAll(".style-card img").forEach(img=>{
  },{once:true});
 });
 function applyBusinessDetails(d){
- if(d.address){$("#addressText").textContent=d.address;$("#mapsLink").href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(d.address);$("#mapFrame").src="https://maps.google.com/maps?q="+encodeURIComponent(d.address)+"&z=15&output=embed"}
+ if(d.address){$("#addressText").textContent=d.address;const destination=d.mapsQuery||d.address;$("#mapsLink").href="https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(destination);$("#mapFrame").src="https://maps.google.com/maps?q="+encodeURIComponent(destination)+"&z=17&output=embed"}
  if(d.phone){$("#phoneText").textContent=d.phone;$("#callBtn").href="tel:"+d.phone.replace(/[^+\d]/g,"");$("#callBtn").textContent="TELEFONLA ULAŞ ↗"}
  if(d.hours)$("#hoursText").textContent=d.hours;
 }
