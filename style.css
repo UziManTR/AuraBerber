@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Oswald:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Montserrat:wght@400;500;600;700;800&display=swap');
 :root{--bg:#08090c;--panel:#11141b;--white:#f7f8fb;--muted:#a0a6b4;--gold:#d6b35a;--gold-light:#f4dfa0;--line:#ffffff19;--max:1200px;--ease:cubic-bezier(.2,.75,.2,1)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:90px;scrollbar-color:#434752 var(--bg)}
@@ -91,3 +91,16 @@ body.cursor-hover .cursor-ring{width:44px;height:44px;border-color:#ffe7a0;backg
 .contact h2{ text-shadow:0 0 32px #f2c94c18}
 .cursor-glow{background:radial-gradient(circle,#f2c94c30 0%,#f2c94c13 40%,transparent 72%)!important}
 .cursor-ring{border-color:#f2c94c!important;box-shadow:0 0 16px #f2c94c55!important}
+
+/* AURA typography system */
+:root{--font-body:"DM Sans",sans-serif;--font-display:"Manrope",sans-serif;--font-editorial:"Playfair Display",serif;--font-tech:"Space Grotesk",sans-serif;--font-condensed:"Oswald",sans-serif;--font-clean:"Outfit",sans-serif;--font-luxe:"Montserrat",sans-serif}
+body{font-family:var(--font-body)}
+h1,h2,h3,.brand,.gender-label{font-family:var(--font-display)}
+.hero h1{font-family:var(--font-tech)!important;letter-spacing:-.075em}
+.section h2,.contact h2{font-family:var(--font-display)!important}
+.brand{font-family:var(--font-luxe)!important;font-weight:800;letter-spacing:.18em}
+.eyebrow,.kicker,.nav,.nav-cta,.btn,.filter,.style-meta small,.text-link,.footer>span,.footer>a:not(.brand){font-family:var(--font-tech)!important}
+.style-meta h3{font-family:var(--font-clean)!important}
+.price-box h3,.price-row span:last-child{font-family:var(--font-luxe)!important}
+.gender-label{font-family:var(--font-condensed)!important;letter-spacing:-.045em}
+.contact h2{font-family:var(--font-editorial)!important;letter-spacing:-.045em}
